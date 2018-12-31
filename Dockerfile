@@ -1,7 +1,3 @@
-#docker build -t fanshawe-idp .
-#docker run -p 8080:80 -p 25:25 -v ${PWD}/app:/app fanshawe-idp
-#docker exec -t -i b409cda46c9f /bin/bash
-
 FROM mattrayner/lamp:latest-1604-php7
 
 # Add new user pan
