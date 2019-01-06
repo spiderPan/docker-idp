@@ -15,7 +15,4 @@ RUN postmap /etc/postfix/transport
 RUN postmap /etc/postfix/recipient_canonical
 RUN postmap /etc/postfix/sender_canonical
 
-ADD ./assets/postfix.sh /postfix.sh
-RUN chmod 755 /*.sh
-
-CMD ["/postfix.sh"]
+CMD ["/run.sh"]
