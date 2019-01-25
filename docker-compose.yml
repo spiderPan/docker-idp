@@ -5,13 +5,28 @@ services:
     build:
         context: ./server
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - ./web:/var/www/html
+    depends_on:
+      - mysql
     links:
-      - 'mysql'
+      - mysql
 
   mysql:
+    image: mariadb:10.1
+    volumes:
+      - mysql:/var/lib/mysql
+    restart: always
+    ports:
+      - "8889:3306"
+    environment:
+      TZ: "America/Toronto"
+      MYSQL_DATABASE: "db_movies"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
 
-
-  web:
+volumes:
+  mysql:
