@@ -4,29 +4,31 @@ services:
   server:
     build:
         context: ./server
+    image: idp-server
     ports:
       - 8080:80
-    volumes:
-      - ./web:/var/www/html
     depends_on:
       - mysql
+    volumes:
+      - ./web/www:/var/www/html
     links:
       - mysql
 
   mysql:
-    image: mariadb:10.1
+    image: mariadb:10.3
     volumes:
       - mysql:/var/lib/mysql
+      - ./web/www/db:/docker-entrypoint-initdb.d
     restart: always
     ports:
       - "8889:3306"
     environment:
-      TZ: "America/Toronto"
-      MYSQL_DATABASE: "db_movies"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
-      MYSQL_ROOT_PASSWORD: "root"
+      TZ: America/Toronto
+      MYSQL_DATABASE: db_movies
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-
+  
 volumes:
   mysql:
