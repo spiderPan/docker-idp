@@ -2,13 +2,10 @@
 
 Build a Docker image that contains the environment for IDP study.
 
-Currently, it has the followings LAMP stack
+Currently, it has the followings LAMP stack in services, and will automatically implement the download repo into the environment.
 
-1. Ubuntu 16.04
-2. Apache 2.4.18
-4. MySQL 5.7.23
-5. PHP 7.2
-6. Postfix (configured to send mail locally)
+1. php:7.2.1-apache
+2. mariadb:10.3
 
 ## Getting Started
 
@@ -16,6 +13,7 @@ Currently, it has the followings LAMP stack
 ### Prerequisites
 
 1. [Docker](https://docs.docker.com/install/)
+2. [Docker Compose](https://docs.docker.com/compose/install/)
 
 
 ### Installing
@@ -26,18 +24,33 @@ Currently, it's just an beta version, once the image be uploaded to docker hub, 
     ```
     git clone git@github.com:spiderPan/docker-idp.git
     ```
-2. Build the image
+2. Clone the target repo into the volume
     ```
     cd docker-idp
-    docker build -t fanshawe-idp .
+    cd ./web
+    git clone https://github.com/spiderPan/Fanshawe-IDP-Moive-Review.git ./www
     ```
-3. Running the container based on the build image
+3. Make sure the target repo has database in "db" folder, if not please update `docker-compose.yml` file in `mysql` service's `volume` section.
+   
+4. Running the container based on the build image
     ```
-    docker run -p 8080:80 -p 25:25 -v ${PWD}/app:/app fanshawe-idp
+    cd ../
+    docker-compose up
+    ```
+5. In case you need to re-initialize the container, please clean the volume by doing
+    ```
+    docker-compose down
+    docker volume prune
+    ```
+    or
+    ```
+    docker volume ls
+    docker volume rm NAME
     ```
 
+
 ## Running the tests
-1. Once the container is ready, go to [http://localhost:8080]("http://localhost:8080"), you should see the email sending successfully.
+1. Once the container is ready, go to [http://localhost:8080]("http://localhost:8080"), you should see the site is up to go.
     
 
 2. Checking the current container ID by running
@@ -53,6 +66,4 @@ Currently, it's just an beta version, once the image be uploaded to docker hub, 
 ## Future Plan
 The project can be improved by the following fields
 1. Implement PHP application from gitrepo to the container
-2. Import DB.
-3. How to automat aboves.
-4. Run testing cases.
+2. Run testing cases.
