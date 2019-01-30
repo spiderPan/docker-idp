@@ -25,7 +25,6 @@ services:
     environment:
       TZ: America/Toronto
       MYSQL_DATABASE: "db_movies"
-      MYSQL_USER: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   
 volumes:
