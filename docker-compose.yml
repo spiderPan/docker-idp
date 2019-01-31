@@ -27,5 +27,17 @@ services:
       MYSQL_DATABASE: "db_movies"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - 8888:80
+    volumes:
+      - /sessions
+
 volumes:
   mysql:
