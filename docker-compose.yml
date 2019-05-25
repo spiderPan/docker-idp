@@ -10,7 +10,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./web/www:/var/www/html
+      - ./web:/var/www/html
     links:
       - mysql
 
@@ -18,7 +18,7 @@ services:
     image: mariadb:10.3
     volumes:
       - mysql:/var/lib/mysql
-      - ./web/www/db:/docker-entrypoint-initdb.d
+      - ./web/db:/docker-entrypoint-initdb.d
     restart: always
     ports:
       - "8889:3306"
