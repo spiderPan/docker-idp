@@ -1,43 +1,9 @@
 version: '3'
 
 services:
-  server:
-    build:
-        context: ./server
-    image: idp-server
+  php:
+    image: php:7.3-apache
     ports:
       - 8080:80
-    depends_on:
-      - mysql
     volumes:
-      - ./web:/var/www/html
-    links:
-      - mysql
-
-  mysql:
-    image: mariadb:10.3
-    volumes:
-      - mysql:/var/lib/mysql
-      - ./web/db:/docker-entrypoint-initdb.d
-    restart: always
-    ports:
-      - "8889:3306"
-    environment:
-      TZ: America/Toronto
-      MYSQL_DATABASE: "db_movies"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    links:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-    ports:
-      - 8888:80
-    volumes:
-      - /sessions
-
-volumes:
-  mysql:
+      - ./web/:/var/www/html/
