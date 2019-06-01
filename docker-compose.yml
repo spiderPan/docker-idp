@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   php:
@@ -7,3 +7,19 @@ services:
       - 8080:80
     volumes:
       - ./web/:/var/www/html/
+
+  mysql:
+    image: mariadb:10.3
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./web/db:/docker-entrypoint-initdb.d
+    restart: always
+    ports:
+      - 8889:3306
+    environment:
+      TZ: America/Toronto
+      MYSQL_DATABASE: "db_columbia"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+volumes: 
+  mysql:
