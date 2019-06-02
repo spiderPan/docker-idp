@@ -4,7 +4,7 @@ Build a Docker image that contains the environment for IDP study.
 
 Currently, it has the followings LAMP stack in services, and will automatically implement the download repo into the environment.
 
-1. php:7.2.1-apache
+1. php:7.3-apache (with pdo extention installed)
 2. mariadb:10.3
 
 ## Getting Started
@@ -31,13 +31,18 @@ Currently, it's just an beta version, once the image be uploaded to docker hub, 
     git clone https://github.com/spiderPan/Fanshawe-IDP-Moive-Review.git ./www
     ```
 3. Make sure the target repo has database in "db" folder, if not please update `docker-compose.yml` file in `mysql` service's `volume` section.
-   
-4. Running the container based on the build image
+4. Make sure the target rep has code the conditionally loading database host, it should looks like 
+   ```
+   if(getenv('STAGE')==='LOCAL'){
+        $this->host='mysql';
+    }
+   ```
+5. Running the container based on the build image
     ```
     cd ../
     docker-compose up
     ```
-5. In case you need to re-initialize the container, please clean the volume by doing
+6. In case you need to re-initialize the container, please clean the volume by doing
     ```
     docker-compose down
     docker volume prune
