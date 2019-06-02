@@ -9,6 +9,8 @@ services:
       - 8080:80
     volumes:
       - ./web/:/var/www/html/
+    environment:
+      STAGE: LOCAL
 
   mysql:
     image: mariadb:10.3
