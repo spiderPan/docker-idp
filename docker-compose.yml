@@ -5,6 +5,7 @@ services:
     build: ./php
     depends_on:
       - mysql
+      - email
     ports:
       - 8080:80
     volumes:
@@ -19,7 +20,7 @@ services:
       - ./web/db:/docker-entrypoint-initdb.d
     restart: always
     ports:
-      - 8889:3306
+      - 8899:3306
     environment:
       TZ: America/Toronto
       MYSQL_DATABASE: db_columbia
@@ -36,6 +37,12 @@ services:
       PMA_USER: root
       PMA_PASSWORD:
       PMA_HOSTS: mysql
+  
+  email:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
 
 volumes:
   mysql:
