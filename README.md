@@ -6,6 +6,7 @@ Currently, it has the followings LAMP stack in services, and will automatically 
 
 1. php:7.3-apache (with pdo extention installed)
 2. mariadb:10.3
+3. MailHog
 
 ## Getting Started
 
@@ -66,6 +67,7 @@ Currently, it's just an beta version, once the image be uploaded to docker hub, 
     ```
     docker exec -t -i CONTAINERID /bin/bash
     ```
+4. Any `mail()` function will trigger email to MailHog, where can be checked in `http://localhost:8025/`
         
 
 ## Future Plan
